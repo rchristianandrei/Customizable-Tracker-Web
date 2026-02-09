@@ -7,7 +7,7 @@ type TrackerProps = {
 };
 
 export function TrackerComponent({ style }: TrackerProps) {
-  const { tracker, setTracker } = useTracker();
+  const { tracker } = useTracker();
 
   return (
     <section
@@ -18,8 +18,8 @@ export function TrackerComponent({ style }: TrackerProps) {
         {tracker.Name}
       </section>
       <section className="flex-1 relative">
-        {tracker.Components.map((c) => (
-          <TrackerComponentFactory component={c} />
+        {tracker.Components.map((c, i) => (
+          <TrackerComponentFactory key={i} component={c} />
         ))}
       </section>
       <section className="border-t border-foreground p-1 flex justify-center">

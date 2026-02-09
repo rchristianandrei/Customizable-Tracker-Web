@@ -1,7 +1,7 @@
 import { TrackerComponent } from "@/components/Tracker/Tracker";
 import { TrackerProvider } from "@/contexts/TrackerContext";
-import { TrackerSettings } from "@/pages/manage-tracker/TrackerSettings";
 import { TopBar } from "@/pages/manage-tracker/TopBar";
+import { SettingsBar } from "@/pages/manage-tracker/SettingsBar";
 
 export function ManageTracker() {
   return (
@@ -13,7 +13,7 @@ export function ManageTracker() {
             <TrackerComponent></TrackerComponent>
           </section>
           <section className="border-l border-foreground w-100 p-2">
-            <TrackerSettings></TrackerSettings>
+            <SettingsBar></SettingsBar>
           </section>
         </section>
       </section>
