@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { Textbox } from "@/components/Tracker/Textbox";
 
 type TrackerProps = {
   style?: CSSProperties;
@@ -13,7 +14,9 @@ export function Tracker({ style }: TrackerProps) {
       <section className="border-b flex items-center justify-center py-4">
         Tracker Name
       </section>
-      <section className="flex-1"></section>
+      <section className="flex-1 relative">
+        <Textbox></Textbox>
+      </section>
       <section className="border-t p-1 flex justify-center">
         <button type="button" className="w-full">
           Submit

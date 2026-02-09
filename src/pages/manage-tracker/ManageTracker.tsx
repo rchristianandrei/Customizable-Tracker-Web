@@ -2,13 +2,12 @@ import { Tracker } from "@/components/Tracker/Tracker";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { TopBar } from "@/pages/manage-tracker/TopBar";
 
 export function ManageTracker() {
   return (
     <section className="h-full flex flex-col">
-      <section className="border-b flex justify-center gap-2 py-2">
-        Top bar
-      </section>
+      <TopBar></TopBar>
       <section className="flex-1 overflow-auto flex flex-row">
         <section className="flex-1 overflow-auto flex items-center justify-center">
           <Tracker></Tracker>
