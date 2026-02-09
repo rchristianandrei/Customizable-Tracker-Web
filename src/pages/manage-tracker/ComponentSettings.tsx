@@ -26,6 +26,22 @@ export function ComponentSettings() {
     }));
   }
 
+  function changePosition(Top: number, Left: number) {
+    if (Top < 0 || Top > 549 || Left < 0 || Left > 398) return;
+
+    setSelectedComponent((c) => {
+      if (!c) return c;
+      return { ...c, Top, Left };
+    });
+
+    setTracker((prev) => ({
+      ...prev,
+      Components: prev.Components.map((c) =>
+        c.Id === selectedComponent?.Id ? { ...c, Top, Left } : c,
+      ),
+    }));
+  }
+
   function deleteComponent() {
     setSelectedComponent(() => null);
 
@@ -51,8 +67,10 @@ export function ComponentSettings() {
         <Label>X</Label>
         <Input
           name="Left"
-          onChange={handleChange}
-          type="text"
+          onChange={(e) =>
+            changePosition(selectedComponent.Top, Number(e.target.value))
+          }
+          type="number"
           value={selectedComponent.Left}
         ></Input>
       </Field>
@@ -60,8 +78,10 @@ export function ComponentSettings() {
         <Label>Y</Label>
         <Input
           name="Top"
-          onChange={handleChange}
-          type="text"
+          onChange={(e) =>
+            changePosition(Number(e.target.value), selectedComponent.Left)
+          }
+          type="number"
           value={selectedComponent.Top}
         ></Input>
       </Field>

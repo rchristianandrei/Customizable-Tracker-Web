@@ -7,6 +7,6 @@ export const DropdownboxTypeDefaultValue: DropdownboxType = {
   Type: "DropdownboxType",
   Name: "Dropdownbox",
   Width: "200px",
-  Left: "220px",
-  Top: "20px",
+  Left: 220,
+  Top: 20,
 };

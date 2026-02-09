@@ -3,6 +3,6 @@ export type BaseComponent = {
   Type: string;
   Name: string;
   Width: string;
-  Left: string;
-  Top: string;
+  Left: number;
+  Top: number;
 };

@@ -22,8 +22,8 @@ export function BaseComponent({
       onClick={onClick}
       style={{
         width: component.Width,
-        left: component.Left,
-        top: component.Top,
+        left: `${component.Left}px`,
+        top: `${component.Top}px`,
       }}
     >
       <Label className="h-3.5">{component.Name}</Label>
