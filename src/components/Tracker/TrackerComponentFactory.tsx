@@ -1,4 +1,5 @@
 import { Textbox } from "@/components/Tracker/Textbox";
+import { Dropdownbox } from "@/components/Tracker/Dropdownbox";
 import { useTracker } from "@/contexts/TrackerContext";
 import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
 
@@ -15,6 +16,26 @@ export function TrackerComponentFactory({
 
   function triggerSelectComponentEvent() {
     setSelectedComponent(component);
+  }
+
+  switch (component.Type) {
+    case "DropdownboxType":
+      return (
+        <Dropdownbox
+          textbox={component}
+          clicked={clicked}
+          onClick={triggerSelectComponentEvent}
+        ></Dropdownbox>
+      );
+
+    case "TextboxType":
+      return (
+        <Textbox
+          textbox={component}
+          clicked={clicked}
+          onClick={triggerSelectComponentEvent}
+        ></Textbox>
+      );
   }
 
   return (

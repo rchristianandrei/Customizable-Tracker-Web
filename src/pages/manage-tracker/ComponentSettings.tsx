@@ -6,8 +6,6 @@ import { useTracker } from "@/contexts/TrackerContext";
 export function ComponentSettings() {
   const { setTracker, selectedComponent, setSelectedComponent } = useTracker();
 
-  //   const selectedComponentId = selectedComponent?.Id;
-
   if (!selectedComponent) {
     throw Error("Selected Component is Null!!");
   }
@@ -29,7 +27,7 @@ export function ComponentSettings() {
   }
 
   function deleteComponent() {
-    setSelectedComponent((c) => null);
+    setSelectedComponent(() => null);
 
     setTracker((prev) => ({
       ...prev,

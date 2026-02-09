@@ -4,6 +4,7 @@ export type TextboxType = BaseComponent & {};
 
 export const TextboxTypeDefaultValue: TextboxType = {
   Id: 0,
+  Type: "TextboxType",
   Name: "Textbox",
   Width: "200px",
   Left: "20px",

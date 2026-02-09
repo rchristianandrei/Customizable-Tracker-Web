@@ -1,7 +1,8 @@
+import { useState, useRef, useEffect } from "react";
 import { useTracker } from "@/contexts/TrackerContext";
 import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
+import { DropdownboxTypeDefaultValue } from "@/types/tracker/components/Dropdownbox";
 import { TextboxTypeDefaultValue } from "@/types/tracker/components/Textbox";
-import { useState, useRef, useEffect } from "react";
 
 export function TopBar() {
   const { setTracker } = useTracker();
@@ -52,7 +53,10 @@ export function TopBar() {
               </li>
 
               <li>
-                <button className="w-full px-4 py-2 text-left hover:bg-black hover:text-white">
+                <button
+                  className="w-full px-4 py-2 text-left hover:bg-black hover:text-white"
+                  onClick={() => AddComponent(DropdownboxTypeDefaultValue)}
+                >
                   Dropdownbox
                 </button>
               </li>
