@@ -1,14 +1,14 @@
 import type { CSSProperties } from "react";
-import { Textbox } from "@/components/Tracker/Textbox";
-import type { TrackerType } from "@/types/tracker/Tracker";
 import { TrackerComponentFactory } from "./TrackerComponentFactory";
+import { useTracker } from "@/contexts/TrackerContext";
 
 type TrackerProps = {
-  tracker: TrackerType;
   style?: CSSProperties;
 };
 
-export function TrackerComponent({ tracker, style }: TrackerProps) {
+export function TrackerComponent({ style }: TrackerProps) {
+  const { tracker, setTracker } = useTracker();
+
   return (
     <section
       className="flex flex-col border border-foreground rounded shadow w-150 h-175"
@@ -18,7 +18,6 @@ export function TrackerComponent({ tracker, style }: TrackerProps) {
         {tracker.Name}
       </section>
       <section className="flex-1 relative">
-        {/* <Textbox></Textbox> */}
         {tracker.Components.map((c) => (
           <TrackerComponentFactory component={c} />
         ))}

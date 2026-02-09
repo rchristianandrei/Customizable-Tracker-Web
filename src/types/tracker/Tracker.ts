@@ -4,3 +4,8 @@ export type TrackerType = {
   Name: string;
   Components: BaseComponent[];
 };
+
+export const TrackerTypeDefaultValue = {
+  Name: "Tracker Name",
+  Components: [],
+};
