@@ -10,8 +10,13 @@ export const trackerComponentRepo = {
   GetById: (id: number) => {
     return api.get<BaseComponent>(`${prefix}/${id}`);
   },
-  Create: (trackerId: number) => {
+  CreateTextbox: (trackerId: number) => {
     return api.post<BaseComponent>(`${prefix}/textbox`, {
+      trackerId: trackerId,
+    });
+  },
+  CreateDropdownbox: (trackerId: number) => {
+    return api.post<BaseComponent>(`${prefix}/dropdownbox`, {
       trackerId: trackerId,
     });
   },

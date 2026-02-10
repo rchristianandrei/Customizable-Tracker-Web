@@ -2,4 +2,5 @@
 
 public class DropdownboxComponent : TrackerBaseComponent
 {
+    public override string Type => "Dropdownbox";
 }

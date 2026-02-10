@@ -19,7 +19,7 @@ export function TrackerComponentFactory({
   }
 
   switch (component.type) {
-    case "DropdownboxType":
+    case "Dropdownbox":
       return (
         <Dropdownbox
           textbox={component}
@@ -28,7 +28,7 @@ export function TrackerComponentFactory({
         ></Dropdownbox>
       );
 
-    case "TextboxType":
+    case "Textbox":
       return (
         <Textbox
           textbox={component}

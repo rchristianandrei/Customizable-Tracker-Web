@@ -25,7 +25,8 @@ public class TrackerComponentController : ControllerBase
     [HttpPost("textbox")]
     public IActionResult PostTextBox([FromBody] CreateTextboxDto value)
     {
-        // TODO - Validate if tracker exists and with access
+        var tracker = TrackerController.trackers.Find(t => t.Id == value.TrackerId);
+        if (tracker == null) return NotFound("Tracker not found");
 
         var textbox = new TextboxComponent()
         {
@@ -38,6 +39,25 @@ public class TrackerComponentController : ControllerBase
         components.Add(textbox);
 
         return Ok(textbox);
+    }
+
+    [HttpPost("dropdownbox")]
+    public IActionResult PostDropdownbox([FromBody] CreateDropdownboxDto value)
+    {
+        var tracker = TrackerController.trackers.Find(t => t.Id == value.TrackerId);
+        if (tracker == null) return NotFound("Tracker not found");
+
+        var dropdownbox = new DropdownboxComponent()
+        {
+            Id = components.Count + 1,
+            Name = "Dropdownbox",
+            DateTimeCreated = DateTime.Now,
+            TrackerId = value.TrackerId,
+        };
+
+        components.Add(dropdownbox);
+
+        return Ok(dropdownbox);
     }
 
     //[HttpPut("{id}")]

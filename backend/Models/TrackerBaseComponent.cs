@@ -6,7 +6,7 @@ public abstract class TrackerBaseComponent
 
     public string Name { get; set; } = string.Empty;
 
-    public string Type { get; set; } = string.Empty;
+    public abstract string Type { get; }
 
     public int Width { get; set; } = 200;
 

@@ -9,6 +9,8 @@ type TrackerProps = {
 export function TrackerComponent({ style }: TrackerProps) {
   const { tracker } = useTracker();
 
+  if (!tracker) return;
+
   return (
     <section
       className="flex flex-col border border-foreground rounded shadow h-175"
