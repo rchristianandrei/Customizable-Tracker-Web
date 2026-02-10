@@ -12,13 +12,13 @@ export function TrackerComponentFactory({
 }: TrackerComponentFactoryProps) {
   const { selectedComponent, setSelectedComponent } = useTracker();
 
-  const clicked = selectedComponent?.Id === component.Id;
+  const clicked = selectedComponent?.id === component.id;
 
   function triggerSelectComponentEvent() {
     setSelectedComponent(component);
   }
 
-  switch (component.Type) {
+  switch (component.type) {
     case "DropdownboxType":
       return (
         <Dropdownbox

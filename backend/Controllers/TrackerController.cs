@@ -8,7 +8,7 @@ namespace backend.Controllers;
 [ApiController]
 public class TrackerController : ControllerBase
 {
-    private static readonly List<Tracker> trackers = [];
+    public static readonly List<Tracker> trackers = [];
 
     [HttpGet]
     public IActionResult GetAll()
@@ -22,6 +22,9 @@ public class TrackerController : ControllerBase
         var tracker = trackers.Find((t) => t.Id == id);
 
         if (tracker == null) return NotFound();
+
+        var components = TrackerComponentController.components.FindAll(t => t.TrackerId == tracker.Id);
+        tracker.Components = components;
 
         return Ok(tracker);
     }

@@ -16,7 +16,6 @@ export function EditTracker() {
       try {
         const result = await trackerRepo.GetById(Number(id));
         const data = result.data;
-        console.log(data);
         setTracker(data);
       } catch (err) {
         setTracker(null);

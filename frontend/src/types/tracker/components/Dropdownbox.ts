@@ -3,10 +3,10 @@ import type { BaseComponent } from "./BaseComponent";
 export type DropdownboxType = BaseComponent & {};
 
 export const DropdownboxTypeDefaultValue: DropdownboxType = {
-  Id: 1,
-  Type: "DropdownboxType",
-  Name: "Dropdownbox",
-  Width: 200,
-  Left: 220,
-  Top: 20,
+  id: 1,
+  type: "DropdownboxType",
+  name: "Dropdownbox",
+  width: 200,
+  x: 220,
+  y: 20,
 };

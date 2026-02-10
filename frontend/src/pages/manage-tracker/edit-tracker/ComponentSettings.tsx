@@ -20,7 +20,7 @@ export function ComponentSettings() {
     setTracker((prev) => ({
       ...prev,
       components: prev.components.map((c) =>
-        c.Id === selectedComponent?.Id
+        c.id === selectedComponent?.id
           ? { ...c, [e.target.name]: e.target.value }
           : c,
       ),
@@ -30,19 +30,19 @@ export function ComponentSettings() {
   function changePosition(Top: number, Left: number) {
     const yRestriction = Top < 0 || Top > 549;
     const xRestriction =
-      Left < 0 || Left > tracker.width - (selectedComponent?.Width ?? 0);
+      Left < 0 || Left > tracker.width - (selectedComponent?.width ?? 0);
 
     if (yRestriction || xRestriction) return;
 
     setSelectedComponent((c) => {
       if (!c) return c;
-      return { ...c, Top, Left };
+      return { ...c, y: Top, x: Left };
     });
 
     setTracker((prev) => ({
       ...prev,
       components: prev.components.map((c) =>
-        c.Id === selectedComponent?.Id ? { ...c, Top, Left } : c,
+        c.id === selectedComponent?.id ? { ...c, y: Top, x: Left } : c,
       ),
     }));
   }
@@ -52,7 +52,7 @@ export function ComponentSettings() {
 
     setTracker((prev) => ({
       ...prev,
-      components: prev.components.filter((c) => c.Id !== selectedComponent?.Id),
+      components: prev.components.filter((c) => c.id !== selectedComponent?.id),
     }));
   }
 
@@ -65,7 +65,7 @@ export function ComponentSettings() {
           name="Name"
           onChange={handleChange}
           type="text"
-          value={selectedComponent.Name}
+          value={selectedComponent.name}
         ></Input>
       </Field>
       <Field>
@@ -73,10 +73,10 @@ export function ComponentSettings() {
         <Input
           name="Left"
           onChange={(e) =>
-            changePosition(selectedComponent.Top, Number(e.target.value))
+            changePosition(selectedComponent.y, Number(e.target.value))
           }
           type="number"
-          value={selectedComponent.Left}
+          value={selectedComponent.x}
         ></Input>
       </Field>
       <Field>
@@ -84,10 +84,10 @@ export function ComponentSettings() {
         <Input
           name="Top"
           onChange={(e) =>
-            changePosition(Number(e.target.value), selectedComponent.Left)
+            changePosition(Number(e.target.value), selectedComponent.x)
           }
           type="number"
-          value={selectedComponent.Top}
+          value={selectedComponent.y}
         ></Input>
       </Field>
       <div className="flex justify-center gap-5">

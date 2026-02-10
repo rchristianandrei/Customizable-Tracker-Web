@@ -1,8 +1,8 @@
 export type BaseComponent = {
-  Id: number;
-  Type: string;
-  Name: string;
-  Width: number;
-  Left: number;
-  Top: number;
+  id: number;
+  type: string;
+  name: string;
+  width: number;
+  x: number;
+  y: number;
 };

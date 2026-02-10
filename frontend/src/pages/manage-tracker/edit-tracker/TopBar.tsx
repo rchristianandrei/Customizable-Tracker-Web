@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { useTracker } from "@/contexts/TrackerContext";
 import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
 import { DropdownboxTypeDefaultValue } from "@/types/tracker/components/Dropdownbox";
-import { TextboxTypeDefaultValue } from "@/types/tracker/components/Textbox";
+import { trackerComponentRepo } from "@/api/trackerComponentRepo";
 
 export function TopBar() {
-  const { setTracker } = useTracker();
+  const { tracker, setTracker } = useTracker();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -26,8 +26,18 @@ export function TopBar() {
     };
   }, []);
 
+  async function AddTextbox() {
+    if (!tracker) return;
+    const result = await trackerComponentRepo.Create(tracker.id);
+    const data = result.data;
+    AddComponent(data);
+  }
+
   function AddComponent(component: BaseComponent) {
-    setTracker((t) => ({ ...t, components: [...t.components, component] }));
+    setTracker((t) => {
+      if (!t) return t;
+      return { ...t, components: [...t.components, component] };
+    });
   }
 
   return (
@@ -46,7 +56,7 @@ export function TopBar() {
               <li>
                 <button
                   className="w-full px-4 py-2 text-left hover:bg-black hover:text-white"
-                  onClick={() => AddComponent(TextboxTypeDefaultValue)}
+                  onClick={AddTextbox}
                 >
                   Textbox
                 </button>

@@ -21,12 +21,12 @@ export function BaseComponent({
       className={`absolute border rounded gap-1 ${clicked ? "border-foreground" : "border-background"}`}
       onClick={onClick}
       style={{
-        width: `${component.Width}px`,
-        left: `${component.Left}px`,
-        top: `${component.Top}px`,
+        width: `${component.width}px`,
+        left: `${component.x}px`,
+        top: `${component.y}px`,
       }}
     >
-      <Label className="h-3.5">{component.Name}</Label>
+      <Label className="h-3.5">{component.name}</Label>
       {children}
     </Field>
   );

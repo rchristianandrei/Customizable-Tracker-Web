@@ -17,4 +17,6 @@ public abstract class TrackerBaseComponent
     public Tracker? Tracker { get; set; }
 
     public int TrackerId { get; set; }
+
+    public DateTime DateTimeCreated { get; set; }
 }
