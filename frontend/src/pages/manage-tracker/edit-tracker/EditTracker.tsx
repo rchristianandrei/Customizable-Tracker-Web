@@ -1,18 +1,28 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { trackerRepo } from "@/api/trackerRepo";
+import { useTracker } from "@/contexts/TrackerContext";
 import { TrackerComponent } from "@/components/Tracker/Tracker";
+import { Layout } from "@/components/Layout";
 import { TopBar } from "@/pages/manage-tracker/edit-tracker/TopBar";
 import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/SettingsBar";
-import { Layout } from "@/components/Layout";
-import { useEffect } from "react";
-import { TrackerRepo } from "@/api/trackerRepo";
-import { useTracker } from "@/contexts/TrackerContext";
 
 export function EditTracker() {
+  const { id } = useParams();
   const { tracker, setTracker } = useTracker();
 
   useEffect(() => {
-    const id = 1;
-    const result = TrackerRepo.GetById(id);
-    setTracker(result);
+    async function OnLoad() {
+      try {
+        const result = await trackerRepo.GetById(Number(id));
+        const data = result.data;
+        console.log(data);
+        setTracker(data);
+      } catch (err) {
+        setTracker(null);
+      }
+    }
+    OnLoad();
   }, []);
 
   return (

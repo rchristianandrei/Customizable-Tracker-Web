@@ -1,4 +1,4 @@
-import { TrackerRepo } from "@/api/trackerRepo";
+import { trackerRepo } from "@/api/trackerRepo";
 import { Layout } from "@/components/Layout";
 import type { TrackerType } from "@/types/tracker/Tracker";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ export function ManageTracker() {
 
   useEffect(() => {
     async function OnLoad() {
-      const result = await TrackerRepo.GetAll();
+      const result = await trackerRepo.GetAll();
       const data = result.data;
       setTrackers(data);
     }
@@ -16,7 +16,7 @@ export function ManageTracker() {
   }, []);
 
   async function CreateNew() {
-    const result = await TrackerRepo.Create({ name: "Tracker name" });
+    const result = await trackerRepo.Create({ name: "Tracker name" });
     const data = result.data;
     console.log(data);
     setTrackers((t) => [...t, data]);
