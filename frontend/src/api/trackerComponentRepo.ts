@@ -22,13 +22,6 @@ export const trackerComponentRepo = {
     });
   },
   Update: (component: BaseComponent) => {
-    switch (component.type) {
-      case "Textbox":
-        return api.put(`${prefix}/textbox/${component.id}`, component);
-      case "Dropdownbox":
-        return api.put(`${prefix}/dropdownbox/${component.id}`, component);
-    }
-
-    throw new Error("Invalid Component Type");
+    return api.put(`${prefix}/${component.id}`, component);
   },
 };

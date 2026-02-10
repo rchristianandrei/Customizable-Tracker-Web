@@ -20,12 +20,15 @@ export function TrackerSettings() {
 
   async function SaveTracker() {
     if (!tracker) return;
-    const result = await trackerRepo.Update(tracker);
-    const data = result.data;
-    console.log(data);
 
-    for (const component of tracker.components) {
-      await trackerComponentRepo.Update(component);
+    try {
+      await trackerRepo.Update(tracker);
+
+      for (const component of tracker.components) {
+        await trackerComponentRepo.Update(component);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

@@ -42,17 +42,6 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
         return Ok(textbox);
     }
 
-    [HttpPut("textbox/{id}")]
-    public IActionResult PutTextbox(int id, [FromBody] UpdateTextboxDto value)
-    {
-        var component = trackerComponentRepo.GetById(id);
-        if(component == null) return NotFound();
-
-        component.Name = value.Name;
-
-        return Ok();
-    }
-
     [HttpPost("dropdownbox")]
     public IActionResult PostDropdownbox([FromBody] CreateDropdownboxDto value)
     {
@@ -71,13 +60,15 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
         return Ok(dropdownbox);
     }
 
-    [HttpPut("dropdownbox/{id}")]
-    public IActionResult PutDropdownbox(int id, [FromBody] UpdateTextboxDto value)
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, [FromBody] UpdateBaseDto value)
     {
         var component = trackerComponentRepo.GetById(id);
         if (component == null) return NotFound();
 
         component.Name = value.Name;
+        component.X = value.X;
+        component.Y = value.Y;
 
         return Ok();
     }

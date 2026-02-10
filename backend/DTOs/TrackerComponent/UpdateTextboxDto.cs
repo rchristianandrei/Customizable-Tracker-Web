@@ -1,6 +1,5 @@
 ﻿namespace backend.DTOs.TrackerComponent;
 
-public class UpdateTextboxDto
+public class UpdateTextboxDto : UpdateBaseDto
 {
-    public string Name { get; set; } = string.Empty;
 }
