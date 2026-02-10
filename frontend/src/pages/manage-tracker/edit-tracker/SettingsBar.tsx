@@ -1,6 +1,6 @@
 import { useTracker } from "@/contexts/TrackerContext";
-import { ComponentSettings } from "@/pages/manage-tracker/ComponentSettings";
-import { TrackerSettings } from "@/pages/manage-tracker/TrackerSettings";
+import { ComponentSettings } from "@/pages/manage-tracker/edit-tracker/ComponentSettings";
+import { TrackerSettings } from "@/pages/manage-tracker/edit-tracker/TrackerSettings";
 
 export function SettingsBar() {
   const { selectedComponent } = useTracker();
