@@ -1,6 +1,6 @@
 export type BaseComponent = {
   id: number;
-  type: string;
+  type: "Textbox" | "Dropdownbox";
   name: string;
   placeholder: string;
   width: number;

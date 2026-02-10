@@ -2,4 +2,5 @@
 
 public class UpdateTextboxDto : UpdateBaseDto
 {
+    public int MaxLength { get; set; }
 }

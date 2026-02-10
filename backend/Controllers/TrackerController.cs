@@ -1,4 +1,5 @@
 ﻿using backend.DTOs.Tracker;
+using backend.Enums;
 using backend.Interfaces;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,14 @@ public class TrackerController(ITrackerRepo trackerRepo, ITrackerComponentRepo t
 
         if (tracker == null) return NotFound();
 
-        var components = trackerComponentRepo.GetAllByTrackerId(id);
+        var raw = trackerComponentRepo.GetAllByTrackerId(id);
+        var components = new List<TrackerBaseComponent>();
+        foreach(var comp in raw){
+            if (comp.Type == TrackerComponentEnums.Textbox.ToString())
+                components.Add((TextboxComponent)comp);
+            else
+                components.Add(comp);
+        }
         tracker.Components = components;
 
         return Ok(tracker);

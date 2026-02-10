@@ -11,7 +11,11 @@ type TextboxProps = {
 export function Textbox({ textbox, clicked = false, onClick }: TextboxProps) {
   return (
     <BaseComponent clicked={clicked} component={textbox} onClick={onClick}>
-      <Input type="text" placeholder={textbox.placeholder}></Input>
+      <Input
+        type="text"
+        placeholder={textbox.placeholder}
+        maxLength={textbox.maxLength}
+      ></Input>
     </BaseComponent>
   );
 }

@@ -1,11 +1,11 @@
-import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
+import type { TrackerComponentType } from "./components/TrackerComponent";
 
 export type TrackerType = {
   id: number;
   name: string;
   width: number;
   dateTimeCreated: Date;
-  components: BaseComponent[];
+  components: TrackerComponentType[];
 };
 
 export const TrackerTypeDefaultValue: TrackerType = {

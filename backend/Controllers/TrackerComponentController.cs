@@ -1,4 +1,5 @@
 ﻿using backend.DTOs.TrackerComponent;
+using backend.Enums;
 using backend.Interfaces;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,7 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
             Name = "Textbox",
             DateTimeCreated = DateTime.Now,
             TrackerId = value.TrackerId,    
+            MaxLength = 20
         };
 
         trackerComponentRepo.Create(textbox);
@@ -72,7 +74,17 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
         component.X = value.X;
         component.Y = value.Y;
 
+        if(value.Type == TrackerComponentEnums.Textbox.ToString())
+        {
+            PutTextbox((TextboxComponent)component, (UpdateTextboxDto)value);
+        }
+
         return Ok();
+    }
+
+    private static void PutTextbox(TextboxComponent textbox, UpdateTextboxDto value)
+    {
+        textbox.MaxLength = value.MaxLength;
     }
 
     [HttpDelete("{id}")]

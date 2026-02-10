@@ -1,10 +1,10 @@
 import { Textbox } from "@/components/Tracker/Textbox";
 import { Dropdownbox } from "@/components/Tracker/Dropdownbox";
 import { useTracker } from "@/contexts/TrackerContext";
-import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
+import type { TrackerComponentType } from "@/types/tracker/components/TrackerComponent";
 
 type TrackerComponentFactoryProps = {
-  component: BaseComponent;
+  component: TrackerComponentType;
 };
 
 export function TrackerComponentFactory({

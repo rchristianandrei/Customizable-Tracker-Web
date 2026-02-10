@@ -4,6 +4,7 @@ import {
   type TrackerType,
 } from "@/types/tracker/Tracker";
 import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
+import type { TrackerComponentType } from "@/types/tracker/components/TrackerComponent";
 
 type TrackerProviderProps = {
   children: React.ReactNode;
@@ -13,9 +14,9 @@ const TrackerContext = createContext<
   | {
       tracker: TrackerType | null;
       setTracker: React.Dispatch<React.SetStateAction<TrackerType | null>>;
-      selectedComponent: BaseComponent | null;
+      selectedComponent: TrackerComponentType | null;
       setSelectedComponent: React.Dispatch<
-        React.SetStateAction<BaseComponent | null>
+        React.SetStateAction<TrackerComponentType | null>
       >;
     }
   | undefined
@@ -26,7 +27,7 @@ export function TrackerProvider({ children }: TrackerProviderProps) {
     TrackerTypeDefaultValue,
   );
   const [selectedComponent, setSelectedComponent] =
-    useState<BaseComponent | null>(null);
+    useState<TrackerComponentType | null>(null);
 
   return (
     <TrackerContext.Provider

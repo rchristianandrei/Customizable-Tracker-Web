@@ -2,6 +2,7 @@ import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTracker } from "@/contexts/TrackerContext";
+import { TextboxSettings } from "./TextboxSettings";
 
 export function ComponentSettings() {
   const { tracker, setTracker, selectedComponent, setSelectedComponent } =
@@ -119,6 +120,9 @@ export function ComponentSettings() {
               value={selectedComponent.y}
             ></Input>
           </Field>
+          {selectedComponent.type === "Textbox" && (
+            <TextboxSettings textbox={selectedComponent}></TextboxSettings>
+          )}
           <div className="flex justify-center gap-5">
             <button
               className="text-red-600"

@@ -5,7 +5,7 @@ import { useTracker } from "@/contexts/TrackerContext";
 import { TrackerComponent } from "@/components/Tracker/Tracker";
 import { Layout } from "@/components/Layout";
 import { TopBar } from "@/pages/manage-tracker/edit-tracker/TopBar";
-import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/SettingsBar";
+import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/editor/SettingsBar";
 
 export function EditTracker() {
   const { id } = useParams();
