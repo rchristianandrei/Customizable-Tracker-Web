@@ -1,5 +1,6 @@
 import { api } from "@/api/axios";
 import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
+import { Component } from "lucide-react";
 
 const prefix = "/trackerComponent";
 
@@ -19,5 +20,15 @@ export const trackerComponentRepo = {
     return api.post<BaseComponent>(`${prefix}/dropdownbox`, {
       trackerId: trackerId,
     });
+  },
+  Update: (component: BaseComponent) => {
+    switch (component.type) {
+      case "Textbox":
+        return api.put(`${prefix}/textbox/${component.id}`, component);
+      case "Dropdownbox":
+        return api.put(`${prefix}/dropdownbox/${component.id}`, component);
+    }
+
+    throw new Error("Invalid Component Type");
   },
 };

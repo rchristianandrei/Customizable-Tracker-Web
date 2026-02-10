@@ -1,7 +1,6 @@
 ﻿using backend.DTOs.TrackerComponent;
 using backend.Interfaces;
 using backend.Models;
-using backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
@@ -26,7 +25,7 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
     }
 
     [HttpPost("textbox")]
-    public IActionResult PostTextBox([FromBody] CreateTextboxDto value)
+    public IActionResult PostTextbox([FromBody] CreateTextboxDto value)
     {
         var tracker = this.trackerRepo.GetById(value.TrackerId);
         if (tracker == null) return NotFound("Tracker not found");
@@ -41,6 +40,17 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
         trackerComponentRepo.Create(textbox);
 
         return Ok(textbox);
+    }
+
+    [HttpPut("textbox/{id}")]
+    public IActionResult PutTextbox(int id, [FromBody] UpdateTextboxDto value)
+    {
+        var component = trackerComponentRepo.GetById(id);
+        if(component == null) return NotFound();
+
+        component.Name = value.Name;
+
+        return Ok();
     }
 
     [HttpPost("dropdownbox")]
@@ -61,10 +71,16 @@ public class TrackerComponentController(ITrackerRepo trackerRepo, ITrackerCompon
         return Ok(dropdownbox);
     }
 
-    //[HttpPut("{id}")]
-    //public void Put(int id, [FromBody] string value)
-    //{
-    //}
+    [HttpPut("dropdownbox/{id}")]
+    public IActionResult PutDropdownbox(int id, [FromBody] UpdateTextboxDto value)
+    {
+        var component = trackerComponentRepo.GetById(id);
+        if (component == null) return NotFound();
+
+        component.Name = value.Name;
+
+        return Ok();
+    }
 
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)

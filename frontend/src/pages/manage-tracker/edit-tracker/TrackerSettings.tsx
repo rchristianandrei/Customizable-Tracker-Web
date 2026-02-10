@@ -1,3 +1,4 @@
+import { trackerComponentRepo } from "@/api/trackerComponentRepo";
 import { trackerRepo } from "@/api/trackerRepo";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,10 @@ export function TrackerSettings() {
     const result = await trackerRepo.Update(tracker);
     const data = result.data;
     console.log(data);
+
+    for (const component of tracker.components) {
+      await trackerComponentRepo.Update(component);
+    }
   }
 
   return (
