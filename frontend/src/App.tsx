@@ -1,11 +1,21 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { ManageTracker } from "@/pages/manage-tracker/ManageTracker";
 
 function App() {
   return (
-    <Layout>
-      <ManageTracker></ManageTracker>
-    </Layout>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <ManageTracker></ManageTracker>
+            </Layout>
+          }
+        ></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
