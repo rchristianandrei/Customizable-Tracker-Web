@@ -7,8 +7,12 @@ export function ManageTracker() {
   const [trackers, setTrackers] = useState<TrackerType[]>([]);
 
   useEffect(() => {
-    const result = TrackerRepo.GetAll();
-    setTrackers(result);
+    async function OnLoad() {
+      const result = await TrackerRepo.GetAll();
+      const data = result.data;
+      setTrackers(data);
+    }
+    OnLoad();
   }, []);
 
   function CreateNew() {
@@ -27,14 +31,14 @@ export function ManageTracker() {
         </button>
       </div>
       <ul className="p-4 flex flex-wrap gap-2">
-        {trackers.map((t, i) => (
+        {trackers.map((t) => (
           <li
-            key={i}
+            key={t.id}
             className="border p-4 rounded w-100 flex items-center justify-between"
           >
-            <span>{t.Name}</span>
+            <span>{t.name}</span>
             <a
-              href={`/${t.Id}`}
+              href={`/${t.id}`}
               className="bg-blue-100 text-blue-900 rounded p-2 cursor-pointer"
             >
               Open

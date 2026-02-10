@@ -22,7 +22,7 @@ export function TrackerSettings() {
           name="Name"
           onChange={handleChange}
           type="text"
-          value={tracker.Name}
+          value={tracker.name}
         ></Input>
       </Field>
     </div>

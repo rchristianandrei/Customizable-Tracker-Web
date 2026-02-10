@@ -27,7 +27,7 @@ export function TopBar() {
   }, []);
 
   function AddComponent(component: BaseComponent) {
-    setTracker((t) => ({ ...t, Components: [...t.Components, component] }));
+    setTracker((t) => ({ ...t, components: [...t.components, component] }));
   }
 
   return (

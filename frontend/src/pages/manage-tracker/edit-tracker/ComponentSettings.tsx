@@ -19,7 +19,7 @@ export function ComponentSettings() {
 
     setTracker((prev) => ({
       ...prev,
-      Components: prev.Components.map((c) =>
+      components: prev.components.map((c) =>
         c.Id === selectedComponent?.Id
           ? { ...c, [e.target.name]: e.target.value }
           : c,
@@ -30,7 +30,7 @@ export function ComponentSettings() {
   function changePosition(Top: number, Left: number) {
     const yRestriction = Top < 0 || Top > 549;
     const xRestriction =
-      Left < 0 || Left > tracker.Width - (selectedComponent?.Width ?? 0);
+      Left < 0 || Left > tracker.width - (selectedComponent?.Width ?? 0);
 
     if (yRestriction || xRestriction) return;
 
@@ -41,7 +41,7 @@ export function ComponentSettings() {
 
     setTracker((prev) => ({
       ...prev,
-      Components: prev.Components.map((c) =>
+      components: prev.components.map((c) =>
         c.Id === selectedComponent?.Id ? { ...c, Top, Left } : c,
       ),
     }));
@@ -52,7 +52,7 @@ export function ComponentSettings() {
 
     setTracker((prev) => ({
       ...prev,
-      Components: prev.Components.filter((c) => c.Id !== selectedComponent?.Id),
+      components: prev.components.filter((c) => c.Id !== selectedComponent?.Id),
     }));
   }
 

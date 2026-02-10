@@ -1,16 +1,14 @@
+import { api } from "@/api/axios";
 import {
   TrackerTypeDefaultValue,
   type TrackerType,
 } from "@/types/tracker/Tracker";
 
+const prefix = "/tracker";
+
 export const TrackerRepo = {
-  GetAll: (): TrackerType[] => {
-    return [
-      TrackerTypeDefaultValue,
-      TrackerTypeDefaultValue,
-      TrackerTypeDefaultValue,
-      TrackerTypeDefaultValue,
-    ];
+  GetAll: () => {
+    return api.get<TrackerType[]>(prefix);
   },
   GetById: (id: number): TrackerType | null => {
     return TrackerTypeDefaultValue;

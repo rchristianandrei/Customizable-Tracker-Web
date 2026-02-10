@@ -1,15 +1,15 @@
 import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
 
 export type TrackerType = {
-  Id: number;
-  Name: string;
-  Width: number;
-  Components: BaseComponent[];
+  id: number;
+  name: string;
+  width: number;
+  components: BaseComponent[];
 };
 
 export const TrackerTypeDefaultValue: TrackerType = {
-  Id: 1,
-  Name: "Tracker Name",
-  Width: 598,
-  Components: [],
+  id: 1,
+  name: "Tracker Name",
+  width: 598,
+  components: [],
 };

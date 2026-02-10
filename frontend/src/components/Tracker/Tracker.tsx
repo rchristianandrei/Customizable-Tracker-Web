@@ -15,13 +15,13 @@ export function TrackerComponent({ style }: TrackerProps) {
       style={style}
     >
       <section className="border-b border-foreground flex items-center justify-center py-4 h-15">
-        {tracker.Name}
+        {tracker.name}
       </section>
       <section
         className="flex-1 relative overflow-hidden"
-        style={{ width: `${tracker.Width}px` }}
+        style={{ width: `${tracker.width}px` }}
       >
-        {tracker.Components.map((c, i) => (
+        {tracker.components.map((c, i) => (
           <TrackerComponentFactory key={i} component={c} />
         ))}
       </section>
