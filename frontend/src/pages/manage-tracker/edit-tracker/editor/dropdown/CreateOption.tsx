@@ -14,8 +14,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useTracker } from "@/contexts/TrackerContext";
-import type { DropdownboxType } from "@/types/tracker/components/Dropdownbox";
+import { useTrackerState, useTrackerActions } from "@/contexts/TrackerContext";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -29,8 +28,8 @@ const formSchema = z.object({
 });
 
 export function CreateOption() {
-  const { tracker, setTracker, selectedComponent, setSelectedComponent } =
-    useTracker();
+  const { tracker, selectedComponent } = useTrackerState();
+  const { updateComponent } = useTrackerActions();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,16 +47,15 @@ export function CreateOption() {
         dropdownId: selectedComponent.id,
         value: data.value,
       });
+
       form.reset();
 
-      const newComponent: DropdownboxType = {
-        ...selectedComponent,
-        options: [...selectedComponent.options, result.data],
-      };
-      setSelectedComponent(() => newComponent);
-      setTracker({
-        ...tracker,
-        components: [...tracker.components, newComponent],
+      updateComponent((c) => {
+        if (c.type !== "Dropdown") return c;
+        return {
+          ...c,
+          options: [...c.options, result.data],
+        };
       });
     } catch (error) {}
   }

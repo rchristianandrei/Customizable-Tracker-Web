@@ -1,71 +1,26 @@
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTracker } from "@/contexts/TrackerContext";
+import { useTrackerState, useTrackerActions } from "@/contexts/TrackerContext";
 import { TextboxSettings } from "./TextboxSettings";
 import { trackerComponentRepo } from "@/api/trackerComponentRepo";
 import { DropdownSettings } from "./dropdown/DropdownSettings";
 
 export function ComponentSettings() {
-  const {
-    tracker,
-    setTracker,
-    selectedComponent,
-    setSelectedComponent,
-    onLoad,
-  } = useTracker();
+  const { selectedComponent } = useTrackerState();
+  const { setSelectedComponentId, updateComponent, deleteComponent } =
+    useTrackerActions();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSelectedComponent((c) => {
-      if (!c) return c;
-      return { ...c, [e.target.name]: e.target.value };
-    });
-
-    setTracker((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        components: prev.components.map((c) =>
-          c.id === selectedComponent?.id
-            ? { ...c, [e.target.name]: e.target.value }
-            : c,
-        ),
-      };
-    });
+    updateComponent((c) => ({ ...c, [e.target.name]: e.target.value }));
   }
 
-  function changePosition(Top: number, Left: number) {
-    if (!tracker) return;
-
-    const yRestriction = Top < 0 || Top > 549;
-    const xRestriction =
-      Left < 0 || Left > tracker.width - (selectedComponent?.width ?? 0);
-
-    if (yRestriction || xRestriction) return;
-
-    setSelectedComponent((c) => {
-      if (!c) return c;
-      return { ...c, y: Top, x: Left };
-    });
-
-    setTracker((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        components: prev.components.map((c) =>
-          c.id === selectedComponent?.id ? { ...c, y: Top, x: Left } : c,
-        ),
-      };
-    });
-  }
-
-  async function deleteComponent() {
-    if (!tracker || !selectedComponent) return;
+  async function onDeleteComponent() {
+    if (!selectedComponent) return;
 
     try {
       await trackerComponentRepo.Delete(selectedComponent.id);
-      setSelectedComponent(() => null);
-      await onLoad(tracker.id);
+      deleteComponent(selectedComponent.id);
     } catch (error) {
       console.log(error);
     }
@@ -107,9 +62,8 @@ export function ComponentSettings() {
             <Label>X</Label>
             <Input
               name="x"
-              onChange={(e) =>
-                changePosition(selectedComponent.y, Number(e.target.value))
-              }
+              min={0}
+              onChange={handleChange}
               type="number"
               value={selectedComponent.x}
             ></Input>
@@ -118,9 +72,8 @@ export function ComponentSettings() {
             <Label>Y</Label>
             <Input
               name="y"
-              onChange={(e) =>
-                changePosition(Number(e.target.value), selectedComponent.x)
-              }
+              min={0}
+              onChange={handleChange}
               type="number"
               value={selectedComponent.y}
             ></Input>
@@ -135,11 +88,11 @@ export function ComponentSettings() {
             <button
               className="text-red-600"
               type="button"
-              onClick={deleteComponent}
+              onClick={onDeleteComponent}
             >
               Delete
             </button>
-            <button type="button" onClick={() => setSelectedComponent(null)}>
+            <button type="button" onClick={() => setSelectedComponentId(null)}>
               Close
             </button>
           </div>

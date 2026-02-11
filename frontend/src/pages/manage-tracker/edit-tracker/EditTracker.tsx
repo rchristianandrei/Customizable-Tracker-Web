@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useTracker } from "@/contexts/TrackerContext";
+import { useTrackerState, useTrackerActions } from "@/contexts/TrackerContext";
 import { TrackerComponent } from "@/components/Tracker/Tracker";
 import { Layout } from "@/components/Layout";
 import { TopBar } from "@/pages/manage-tracker/edit-tracker/TopBar";
@@ -8,7 +8,8 @@ import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/editor/Settings
 
 export function EditTracker() {
   const { id } = useParams();
-  const { tracker, onLoad } = useTracker();
+  const { tracker } = useTrackerState();
+  const { setSelectedComponentId, onLoad } = useTrackerActions();
 
   useEffect(() => {
     onLoad(Number(id));
@@ -21,7 +22,10 @@ export function EditTracker() {
           <section className="flex-1 overflow-auto flex flex-col">
             <TopBar></TopBar>
             <div className="flex-1 flex items-center justify-center">
-              <TrackerComponent tracker={tracker}></TrackerComponent>
+              <TrackerComponent
+                tracker={tracker}
+                onComponentClick={setSelectedComponentId}
+              ></TrackerComponent>
             </div>
           </section>
           <section className="border-l border-foreground w-100 p-2">

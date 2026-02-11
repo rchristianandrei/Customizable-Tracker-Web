@@ -1,21 +1,17 @@
-import { trackerComponentRepo } from "@/api/trackerComponentRepo";
-import { trackerRepo } from "@/api/trackerRepo";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTracker } from "@/contexts/TrackerContext";
+import { useTrackerState, useTrackerActions } from "@/contexts/TrackerContext";
 
 export function TrackerSettings() {
-  const { tracker, setTracker } = useTracker();
+  const { tracker } = useTrackerState();
+  const { updateTracker } = useTrackerActions();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTracker((t) => {
-      if (!t) return t;
-      return {
-        ...t,
-        [e.target.name]: e.target.value,
-      };
-    });
+    updateTracker((t) => ({
+      ...t,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (

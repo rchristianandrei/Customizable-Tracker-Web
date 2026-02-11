@@ -1,7 +1,7 @@
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTracker } from "@/contexts/TrackerContext";
+import { useTrackerActions } from "@/contexts/TrackerContext";
 import type { TextboxType } from "@/types/tracker/components/Textbox";
 
 type TextboxSettingsProps = {
@@ -9,24 +9,12 @@ type TextboxSettingsProps = {
 };
 
 export function TextboxSettings({ textbox }: TextboxSettingsProps) {
-  const { setTracker, selectedComponent, setSelectedComponent } = useTracker();
+  const { updateComponent } = useTrackerActions();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSelectedComponent((c) => {
-      if (!c) return c;
+    updateComponent((c) => {
+      if (c.type !== "Textbox") return c;
       return { ...c, [e.target.name]: e.target.value };
-    });
-
-    setTracker((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        components: prev.components.map((c) =>
-          c.id === selectedComponent?.id
-            ? { ...c, [e.target.name]: e.target.value }
-            : c,
-        ),
-      };
     });
   }
 

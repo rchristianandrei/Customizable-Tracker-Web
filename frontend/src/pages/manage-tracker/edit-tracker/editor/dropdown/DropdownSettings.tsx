@@ -14,17 +14,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CreateOption } from "./CreateOption";
-import { useTracker } from "@/contexts/TrackerContext";
+import { useTrackerState, useTrackerActions } from "@/contexts/TrackerContext";
 import { dropdownOptionRepo } from "@/api/dropdownOptionRepo";
-import type { DropdownboxType } from "@/types/tracker/components/Dropdownbox";
 
 export function DropdownSettings() {
-  const {
-    tracker,
-    setTracker,
-    selectedComponent: dropdown,
-    setSelectedComponent,
-  } = useTracker();
+  const { tracker, selectedComponent: dropdown } = useTrackerState();
+  const { updateComponent } = useTrackerActions();
 
   if (!dropdown || dropdown.type !== "Dropdown") return;
 
@@ -33,22 +28,11 @@ export function DropdownSettings() {
 
     try {
       await dropdownOptionRepo.Delete(id);
-
-      const newComponent: DropdownboxType = {
-        ...dropdown,
-        options: dropdown.options.filter((o) => o.id !== id),
-      };
-
-      setSelectedComponent((c) => {
+      updateComponent((c) => {
         if (!c || c.type !== "Dropdown") return c;
-        return newComponent;
-      });
-
-      setTracker((t) => {
-        if (!t) return t;
         return {
-          ...t,
-          components: [...t.components, newComponent],
+          ...c,
+          options: c.options.filter((o) => o.id !== id),
         };
       });
     } catch (error) {}
