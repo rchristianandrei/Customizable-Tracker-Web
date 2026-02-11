@@ -3,10 +3,8 @@ import {
   TrackerTypeDefaultValue,
   type TrackerType,
 } from "@/types/tracker/Tracker";
-import type { BaseComponent } from "@/types/tracker/components/BaseComponent";
 import type { TrackerComponentType } from "@/types/tracker/components/TrackerComponent";
 import { trackerRepo } from "@/api/trackerRepo";
-import { textboxRepo } from "@/api/textboxRepo";
 
 type TrackerProviderProps = {
   children: React.ReactNode;
@@ -35,10 +33,6 @@ export function TrackerProvider({ children }: TrackerProviderProps) {
   async function onLoad(trackerId: number) {
     try {
       const result = await trackerRepo.GetById(trackerId);
-      const data = result.data;
-      const textboxes = await textboxRepo.GetAll(trackerId);
-
-      data.components = [...data.components, ...textboxes.data];
       setTracker(result.data);
     } catch (err) {
       setTracker(null);

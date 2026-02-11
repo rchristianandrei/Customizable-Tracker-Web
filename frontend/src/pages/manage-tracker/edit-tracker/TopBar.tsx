@@ -54,10 +54,6 @@ export function TopBar() {
 
     try {
       await trackerRepo.Update(tracker);
-
-      for (const component of tracker.components) {
-        await trackerComponentRepo.Update(component);
-      }
     } catch (error) {
       console.log(error);
     }

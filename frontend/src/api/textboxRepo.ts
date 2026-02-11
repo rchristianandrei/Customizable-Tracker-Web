@@ -9,9 +9,6 @@ export const textboxRepo = {
       trackerId: trackerId,
     });
   },
-  GetAll: (trackerId: number) => {
-    return api.get<TextboxType[]>(`${prefix}/${trackerId}`);
-  },
   Update: (component: TextboxType) => {
     return api.put(`${prefix}/${component.id}`, component);
   },

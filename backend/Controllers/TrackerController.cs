@@ -1,7 +1,7 @@
 ﻿using backend.DTOs;
-using backend.DTOs.Textbox;
 using backend.DTOs.Tracker;
 using backend.Interfaces;
+using backend.Mapper;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +31,7 @@ public class TrackerController(ITrackerRepo trackerRepo, ITextboxRepo textboxRep
         var textboxes = await this.textboxRepo.GetAllByTrackerId(tracker.Id);
 
         var components = new List<BaseComponentDto>();
-        components.AddRange([.. textboxes.Select(t => new TextboxDto{Id = t.Id, Name = t.Name, MaxLength = t.MaxLength})]);
+        components.AddRange([.. textboxes.Select(t => t.ToDto())]);
 
         var dto = new TrackerDto
         {

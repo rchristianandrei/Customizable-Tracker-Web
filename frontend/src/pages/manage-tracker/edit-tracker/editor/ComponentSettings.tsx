@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTracker } from "@/contexts/TrackerContext";
 import { TextboxSettings } from "./TextboxSettings";
+import { trackerComponentRepo } from "@/api/trackerComponentRepo";
 
 export function ComponentSettings() {
   const { tracker, setTracker, selectedComponent, setSelectedComponent } =
@@ -52,18 +53,26 @@ export function ComponentSettings() {
     });
   }
 
-  function deleteComponent() {
-    setSelectedComponent(() => null);
+  async function deleteComponent() {
+    if (!selectedComponent) return;
 
-    setTracker((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        components: prev.components.filter(
-          (c) => c.id !== selectedComponent?.id,
-        ),
-      };
-    });
+    try {
+      await trackerComponentRepo.Delete(selectedComponent.id);
+
+      setSelectedComponent(() => null);
+
+      setTracker((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          components: prev.components.filter(
+            (c) => c.id !== selectedComponent?.id,
+          ),
+        };
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
