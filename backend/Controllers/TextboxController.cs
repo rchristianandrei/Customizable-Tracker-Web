@@ -1,5 +1,6 @@
 ﻿using backend.Data;
 using backend.DTOs.TrackerComponent;
+using backend.Interfaces;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,17 +9,15 @@ namespace backend.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TextboxController(AppDbContext context) : ControllerBase
+public class TextboxController(ITrackerRepo trackerRepo, ITextboxRepo textboxRepo) : ControllerBase
 {
-    private readonly AppDbContext context = context;
+    private readonly ITrackerRepo trackerRepo = trackerRepo;
+    private readonly ITextboxRepo textboxRepo = textboxRepo;
 
     [HttpGet("{trackerId}")]
     public async Task<IActionResult> GetAllByTrackerId(int trackerId)
     {
-        var textboxes = await this.context.TrackerComponents
-            .OfType<TextboxComponent>()
-            .Where(t => t.TrackerId == trackerId)
-            .ToListAsync();
+        var textboxes = await this.textboxRepo.GetAllByTrackerId(trackerId);
 
         return Ok(textboxes);
     }
@@ -26,18 +25,17 @@ public class TextboxController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateTextboxDto value)
     {
-        var tracker = await this.context.Trackers.FindAsync(value.TrackerId);
+        var tracker = await this.trackerRepo.GetById(value.TrackerId);
         if (tracker == null) return NotFound("Tracker not found");
 
-        BaseComponent textbox = new TextboxComponent()
+        var textbox = new TextboxComponent()
         {
             Name = "Textbox",
             DateTimeCreated = DateTime.Now,
             TrackerId = value.TrackerId,
         };
 
-        await this.context.TrackerComponents.AddAsync(textbox);
-        await this.context.SaveChangesAsync();
+        await this.textboxRepo.Create(textbox);
 
         return Ok();
     }

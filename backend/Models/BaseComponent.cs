@@ -2,7 +2,7 @@
 
 namespace backend.Models;
 
-public abstract class BaseComponent : IBaseModel
+public abstract class BaseComponent
 {
     public int Id { get; set; }
 

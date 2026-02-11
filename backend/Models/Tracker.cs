@@ -1,6 +1,6 @@
 ﻿namespace backend.Models;
 
-public class Tracker : IBaseModel
+public class Tracker
 {
     public int Id { get; set; }
 

@@ -1,41 +1,36 @@
-﻿using backend.Data;
-using backend.DTOs;
+﻿using backend.DTOs;
 using backend.DTOs.Textbox;
 using backend.DTOs.Tracker;
-using backend.DTOs.TrackerComponent;
-using backend.Enums;
 using backend.Interfaces;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace backend.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TrackerController(AppDbContext context) : ControllerBase
+public class TrackerController(ITrackerRepo trackerRepo, ITextboxRepo textboxRepo) : ControllerBase
 {
-    private readonly AppDbContext context = context;
+    private readonly ITrackerRepo trackerRepo = trackerRepo;
+    private readonly ITextboxRepo textboxRepo = textboxRepo;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var trackers = await this.context.Trackers.ToListAsync();
+        var trackers = await this.trackerRepo.GetAll();
         return Ok(trackers);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var tracker = await this.context.Trackers.FindAsync(id);
+        var tracker = await this.trackerRepo.GetById(id);
 
         if (tracker == null) return NotFound();
 
-        var textboxes = await this.context.TextboxComponents.ToListAsync();
+        var textboxes = await this.textboxRepo.GetAllByTrackerId(tracker.Id);
 
         var components = new List<BaseComponentDto>();
-
         components.AddRange([.. textboxes.Select(t => new TextboxDto{Id = t.Id, Name = t.Name, MaxLength = t.MaxLength})]);
 
         var dto = new TrackerDto
@@ -58,8 +53,7 @@ public class TrackerController(AppDbContext context) : ControllerBase
             DateTimeCreated = DateTime.Now,
         };
 
-        await this.context.Trackers.AddAsync(tracker);
-        await this.context.SaveChangesAsync();
+        await this.trackerRepo.Create(tracker);
 
         return Ok(tracker);
     }
@@ -67,12 +61,12 @@ public class TrackerController(AppDbContext context) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] UpdateTrackerDto value)
     {
-        var tracker = await this.context.Trackers.FindAsync(id);
+        var tracker = await this.trackerRepo.GetById(id);
         if (tracker == null) return NotFound();
 
         tracker.Name = value.Name;
 
-        await this.context.SaveChangesAsync();
+        await this.trackerRepo.Save();
 
         return Ok(tracker);
     }
@@ -80,12 +74,11 @@ public class TrackerController(AppDbContext context) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var tracker = await this.context.Trackers.FindAsync(id);
+        var tracker = await this.trackerRepo.GetById(id);
 
         if (tracker == null) return NotFound();
 
-        this.context.Trackers.Remove(tracker);
-        await this.context.SaveChangesAsync();
+        await this.trackerRepo.Delete(tracker);
 
         return NoContent();
     }

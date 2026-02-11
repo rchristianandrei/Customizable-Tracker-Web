@@ -1,12 +1,10 @@
-﻿using backend.Interfaces;
+﻿using backend.Data;
+using backend.Interfaces;
 using backend.Models;
 
 namespace backend.Repositories;
 
-public class TrackerComponentRepo : BaseRepo<BaseComponent>, ITrackerComponentRepo
+public class TrackerComponentRepo(AppDbContext context) : BaseRepo<BaseComponent>(context), ITrackerComponentRepo
 {
-    public List<BaseComponent> GetAllByTrackerId(int trackerId)
-    {
-        return list.FindAll(c => c.TrackerId == trackerId);
-    }
+
 }

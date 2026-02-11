@@ -1,14 +1,13 @@
-﻿using backend.Data;
+﻿using backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace backend.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TrackerComponentController(AppDbContext context) : ControllerBase
+public class TrackerComponentController(ITrackerComponentRepo compRepo) : ControllerBase
 {
-    private readonly AppDbContext context = context;
+    private readonly ITrackerComponentRepo compRepo = compRepo;
 
     //[HttpPost("dropdownbox")]
     //public IActionResult PostDropdownbox([FromBody] CreateDropdownboxDto value)
@@ -31,12 +30,11 @@ public class TrackerComponentController(AppDbContext context) : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var component = await this.context.TrackerComponents.FindAsync(id);
+        var component = await this.compRepo.GetById(id);
 
         if (component == null) return NotFound();
 
-        this.context.Remove(component);
-        await this.context.SaveChangesAsync();
+        await this.compRepo.Delete(component);
 
         return NoContent();
     }

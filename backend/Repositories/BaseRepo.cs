@@ -1,35 +1,38 @@
-﻿using backend.Interfaces;
-using backend.Models;
+﻿using backend.Data;
+using backend.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repositories;
 
-public abstract class BaseRepo<T> : IBaseRepo<T> where T : IBaseModel
+public abstract class BaseRepo<T>(AppDbContext context) : IBaseRepo<T> where T : class
 {
-    protected static readonly List<T> list = [];
+    protected readonly AppDbContext context = context;
+    protected readonly DbSet<T> collection = context.Set<T>();
 
-    public List<T> GetAll()
+    public async Task<List<T>> GetAll()
     {
-        return list;
+        return await this.collection.ToListAsync();
     }
 
-    public T? GetById(int id)
+    public async Task<T?> GetById(int id)
     {
-        return list.Find((t) => t.Id == id);
+        return await this.collection.FindAsync(id);
     }
 
-    public void Create(T item)
+    public async Task Create(T item)
     {
-        item.Id = list.Count + 1;
-        list.Add(item);
+        await this.collection.AddAsync(item);
+        await this.context.SaveChangesAsync();
     }
 
-    public void Update(T item)
+    public async Task Save()
     {
-
+        await this.context.SaveChangesAsync();
     }
 
-    public bool Delete(T item)
+    public async Task Delete(T item)
     {
-        return list.Remove(item);
+        this.collection.Remove(item);
+        await this.context.SaveChangesAsync();
     }
 }

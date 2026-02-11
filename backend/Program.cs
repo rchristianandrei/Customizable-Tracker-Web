@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<ITrackerRepo, TrackerRepo>();
 builder.Services.AddScoped<ITrackerComponentRepo, TrackerComponentRepo>();
-builder.Services.AddScoped<TextboxRepo>();
+builder.Services.AddScoped<ITextboxRepo, TextboxRepo>();
 
 builder.Services.AddCors(options =>
 {
@@ -33,13 +33,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
