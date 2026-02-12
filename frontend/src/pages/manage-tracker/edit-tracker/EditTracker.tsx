@@ -6,6 +6,11 @@ import { Layout } from "@/components/Layout";
 import { TopBar } from "@/pages/manage-tracker/edit-tracker/TopBar";
 import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/editor/SettingsBar";
 import { Header } from "@/components/Header";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 export function EditTracker() {
   const { id } = useParams();
@@ -20,8 +25,12 @@ export function EditTracker() {
     <Layout>
       <Header title="Edit Tracker"></Header>
       {tracker && (
-        <section className="h-full overflow-auto flex flex-row">
-          <section className="flex-1 overflow-auto flex flex-col">
+        <ResizablePanelGroup orientation="horizontal">
+          <ResizablePanel defaultSize="15%" minSize="15%" className="min-w-20">
+            Components
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel minSize="50%" className="flex flex-col">
             <TopBar></TopBar>
             <div className="flex-1 flex items-center justify-center">
               <TrackerComponent
@@ -30,11 +39,12 @@ export function EditTracker() {
                 onComponentClick={setSelectedComponentId}
               ></TrackerComponent>
             </div>
-          </section>
-          <section className="border-l w-100 p-2">
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize="15%" minSize="15%" className="p-2">
             <SettingsBar></SettingsBar>
-          </section>
-        </section>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       )}
       {!tracker && <div>Tracker Not Found</div>}
     </Layout>
