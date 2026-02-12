@@ -26,7 +26,10 @@ export function BaseComponent({
         top: `${component.y}px`,
       }}
     >
-      <Label className="h-3.5">{component.name}</Label>
+      <div className="flex items-center justify-between">
+        <Label className="h-3.5">{component.name}</Label>
+        <span className="text-red-700">*</span>
+      </div>
       {children}
     </Field>
   );

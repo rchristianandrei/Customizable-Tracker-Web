@@ -21,7 +21,7 @@ function App() {
             }
           ></Route>
         </Route>
-        <Route path="/" element={<Dashboard />}></Route>
+        <Route path="/" element={<Dashboard></Dashboard>}></Route>
       </Routes>
     </BrowserRouter>
   );

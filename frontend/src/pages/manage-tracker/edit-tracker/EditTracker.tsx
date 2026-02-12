@@ -5,6 +5,7 @@ import { TrackerComponent } from "@/components/Tracker/Tracker";
 import { Layout } from "@/components/Layout";
 import { TopBar } from "@/pages/manage-tracker/edit-tracker/TopBar";
 import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/editor/SettingsBar";
+import { Header } from "@/components/Header";
 
 export function EditTracker() {
   const { id } = useParams();
@@ -17,6 +18,7 @@ export function EditTracker() {
 
   return (
     <Layout>
+      <Header title="Edit Tracker"></Header>
       {tracker && (
         <section className="h-full overflow-auto flex flex-row">
           <section className="flex-1 overflow-auto flex flex-col">
@@ -29,7 +31,7 @@ export function EditTracker() {
               ></TrackerComponent>
             </div>
           </section>
-          <section className="border-l border-foreground w-100 p-2">
+          <section className="border-l w-100 p-2">
             <SettingsBar></SettingsBar>
           </section>
         </section>

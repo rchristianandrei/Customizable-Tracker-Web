@@ -1,6 +1,6 @@
 import type React from "react";
-import { Heading } from "@/components/Heading";
-import { Navbar } from "@/components/Navbar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -8,12 +8,9 @@ type LayoutProps = {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <section className="h-screen w-screen flex flex-col">
-      <Heading></Heading>
-      <section className="flex-1 overflow-auto flex flex-row">
-        <Navbar></Navbar>
-        <section className="flex-1 overflow-auto">{children}</section>
-      </section>
-    </section>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>{children}</SidebarInset>
+    </SidebarProvider>
   );
 }

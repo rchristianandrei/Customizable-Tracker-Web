@@ -51,7 +51,7 @@ export function TopBar() {
   }
 
   return (
-    <section className="border-b border-foreground flex items-center justify-between gap-2 p-2">
+    <section className="border-b flex items-center justify-between gap-2 p-2">
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setOpen((prev) => !prev)}

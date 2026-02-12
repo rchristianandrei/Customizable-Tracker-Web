@@ -1,4 +1,5 @@
 import { trackerRepo } from "@/api/trackerRepo";
+import { Header } from "@/components/Header";
 import { Layout } from "@/components/Layout";
 import type { TrackerType } from "@/types/tracker/Tracker";
 import { useEffect, useState } from "react";
@@ -24,6 +25,7 @@ export function ManageTracker() {
 
   return (
     <Layout>
+      <Header title="Manage Tracker"></Header>
       <div className="flex justify-end px-4 pt-4">
         <button
           type="button"
