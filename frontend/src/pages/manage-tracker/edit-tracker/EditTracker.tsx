@@ -8,7 +8,7 @@ import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/editor/Settings
 
 export function EditTracker() {
   const { id } = useParams();
-  const { tracker } = useTrackerState();
+  const { tracker, selectedComponent } = useTrackerState();
   const { setSelectedComponentId, getTracker } = useTrackerActions();
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export function EditTracker() {
             <div className="flex-1 flex items-center justify-center">
               <TrackerComponent
                 tracker={tracker}
+                selectedComponentId={selectedComponent?.id}
                 onComponentClick={setSelectedComponentId}
               ></TrackerComponent>
             </div>

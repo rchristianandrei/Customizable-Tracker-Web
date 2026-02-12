@@ -7,34 +7,39 @@ import {
   ComboboxList,
 } from "@/components/ui/combobox";
 import { BaseComponent } from "@/components/Tracker/BaseComponent";
-import {
-  type DropdownboxType,
-  type DropdownOption,
-} from "@/types/tracker/components/Dropdownbox";
+import { type DropdownboxType } from "@/types/tracker/components/Dropdownbox";
 
 type DropdownboxProps = {
   dropdownbox: DropdownboxType;
   clicked?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
 export function Dropdownbox({
   dropdownbox,
   clicked = false,
+  disabled = false,
   onClick,
 }: DropdownboxProps) {
   return (
     <BaseComponent clicked={clicked} component={dropdownbox} onClick={onClick}>
-      <Combobox items={dropdownbox.options.map((o) => o.value)}>
-        <ComboboxInput placeholder={dropdownbox.placeholder} />
+      <Combobox
+        items={dropdownbox.options.map((o) => o.value)}
+        disabled={disabled}
+      >
+        <ComboboxInput
+          placeholder={dropdownbox.placeholder}
+          disabled={disabled}
+        />
         <ComboboxContent>
           <ComboboxEmpty>No items found.</ComboboxEmpty>
           <ComboboxList>
-            {dropdownbox.options.map((o) => (
-              <ComboboxItem key={o.id} value={o.value}>
-                {o.value}
+            {(item) => (
+              <ComboboxItem key={item.id} value={item}>
+                {item}
               </ComboboxItem>
-            ))}
+            )}
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
