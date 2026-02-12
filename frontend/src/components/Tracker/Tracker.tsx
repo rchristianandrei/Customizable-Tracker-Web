@@ -1,6 +1,9 @@
 import { type CSSProperties } from "react";
 import { TrackerComponentFactory } from "./TrackerComponentFactory";
-import type { TrackerType } from "@/types/tracker/Tracker";
+import {
+  TrackerTypeDefaultValue,
+  type TrackerType,
+} from "@/types/tracker/Tracker";
 
 type TrackerProps = {
   tracker: TrackerType;
@@ -23,7 +26,7 @@ export function TrackerComponent({
       </section>
       <section
         className="flex-1 relative overflow-hidden"
-        style={{ width: `${tracker.width}px` }}
+        style={{ width: `${tracker.width ?? TrackerTypeDefaultValue.width}px` }}
       >
         {tracker.components.map((c) => (
           <TrackerComponentFactory

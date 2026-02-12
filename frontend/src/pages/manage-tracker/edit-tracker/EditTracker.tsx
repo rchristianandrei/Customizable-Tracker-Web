@@ -9,10 +9,10 @@ import { SettingsBar } from "@/pages/manage-tracker/edit-tracker/editor/Settings
 export function EditTracker() {
   const { id } = useParams();
   const { tracker } = useTrackerState();
-  const { setSelectedComponentId, onLoad } = useTrackerActions();
+  const { setSelectedComponentId, getTracker } = useTrackerActions();
 
   useEffect(() => {
-    onLoad(Number(id));
+    getTracker(Number(id));
   }, []);
 
   return (

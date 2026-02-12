@@ -6,7 +6,7 @@ import { dropdownRepo } from "@/api/dropdownRepo";
 
 export function TopBar() {
   const { tracker } = useTrackerState();
-  const { onLoad } = useTrackerActions();
+  const { getTracker } = useTrackerActions();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -30,13 +30,13 @@ export function TopBar() {
   async function AddTextbox() {
     if (!tracker) return;
     await textboxRepo.Create(tracker.id);
-    onLoad(tracker.id);
+    getTracker(tracker.id);
   }
 
   async function AddDropdownbox() {
     if (!tracker) return;
     await dropdownRepo.Create(tracker.id);
-    onLoad(tracker.id);
+    getTracker(tracker.id);
   }
 
   async function SaveTracker() {
@@ -44,7 +44,7 @@ export function TopBar() {
 
     try {
       await trackerRepo.Update(tracker);
-      await onLoad(tracker.id);
+      await getTracker(tracker.id);
     } catch (error) {
       console.log(error);
     }
