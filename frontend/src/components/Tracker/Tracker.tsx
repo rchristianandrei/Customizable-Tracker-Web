@@ -12,29 +12,20 @@ type TrackerProps = {
   tracker: TrackerType;
   style?: CSSProperties;
   currentSelectedComponentId?: number | null;
-  onComponentClick?: (componentId: number) => void;
 };
 
 export function TrackerComponent({
   tracker,
   style,
   currentSelectedComponentId,
-  onComponentClick,
 }: TrackerProps) {
-  const {
-    onSelectComponent,
-    setIsClicked: setSelectedComponentId,
-    setIsDisabled,
-  } = useTrackerComponent();
+  const { setIsClicked: setSelectedComponentId, setIsDisabled } =
+    useTrackerComponent();
   const { start, formatTime, handleStart, handleReset, clean } = useStopwatch();
 
   useEffect(() => {
     setSelectedComponentId(currentSelectedComponentId ?? 0);
   }, [currentSelectedComponentId]);
-
-  useEffect(() => {
-    if (onComponentClick) onComponentClick(onSelectComponent);
-  }, [onSelectComponent]);
 
   useEffect(() => {
     setIsDisabled(!start);

@@ -8,11 +8,23 @@ import {
 import { TextboxSettings } from "./TextboxSettings";
 import { trackerComponentRepo } from "@/api/trackerComponentRepo";
 import { DropdownSettings } from "./dropdown/DropdownSettings";
+import { useCustomDnd } from "@/contexts/CustomDndContext";
+import { useEffect } from "react";
 
 export function ComponentSettings() {
   const { selectedComponent } = useEditTrackerState();
   const { setSelectedComponentId, updateComponent, deleteComponent } =
     useEditTrackerActions();
+  const { onDragEnd } = useCustomDnd();
+
+  useEffect(() => {
+    if (onDragEnd.id === 0 || onDragEnd.x === 0 || onDragEnd.y === 0) return;
+    updateComponent((c) => ({
+      ...c,
+      x: c.x + onDragEnd.x,
+      y: c.y + onDragEnd.y,
+    }));
+  }, [onDragEnd]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     updateComponent((c) => ({ ...c, [e.target.name]: e.target.value }));

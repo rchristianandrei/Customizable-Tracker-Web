@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import { type TrackerType } from "@/types/tracker/Tracker";
 import type { TrackerComponentType } from "@/types/tracker/components/TrackerComponent";
 import { useTracker } from "@/hooks/useTracker";
@@ -39,7 +39,6 @@ export function EditTrackerProvider({
     updateComponent,
     deleteComponent,
   } = useComponent(setTracker);
-
   const selectedComponent = useMemo(() => {
     if (!tracker || selectedComponentId == null) return null;
     return tracker.components.find((c) => c.id === selectedComponentId) ?? null;

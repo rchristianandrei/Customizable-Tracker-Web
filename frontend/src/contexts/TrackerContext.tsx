@@ -6,8 +6,6 @@ const TrackerComponentContext = createContext<
       setIsClicked: React.Dispatch<React.SetStateAction<number>>;
       isDisabled: boolean;
       setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-      onSelectComponent: number;
-      setOnSelectComponent: React.Dispatch<React.SetStateAction<number>>;
     }
   | undefined
 >(undefined);
@@ -19,7 +17,6 @@ export function TrackerComponentProvider({
 }) {
   const [isClicked, setIsClicked] = useState<number>(0);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [onSelectComponent, setOnSelectComponent] = useState(0);
 
   return (
     <TrackerComponentContext.Provider
@@ -28,8 +25,6 @@ export function TrackerComponentProvider({
         setIsClicked,
         isDisabled,
         setIsDisabled,
-        onSelectComponent,
-        setOnSelectComponent,
       }}
     >
       {children}
