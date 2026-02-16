@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/resizable";
 import { TrackerComponentProvider } from "@/contexts/TrackerContext";
 import { CustomDndProvider } from "@/contexts/CustomDndContext";
+import { Components } from "@/pages/manage-tracker/edit-tracker/editor/left-side-bar/Components";
 
 export function EditTracker() {
   const { id } = useParams();
@@ -37,7 +38,7 @@ export function EditTracker() {
               minSize="15%"
               className="min-w-20"
             >
-              Components
+              <Components></Components>
             </ResizablePanel>
             <ResizableHandle />
             <ResizablePanel minSize="50%" className="flex flex-col">
